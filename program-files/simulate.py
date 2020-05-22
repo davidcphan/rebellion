@@ -1,9 +1,14 @@
 from grid import Grid
 
+HEIGHT = 2
+WIDTH = 2
+AGENTS = 1
+COPS = 1
+
 def __main__():
-    pass
+    newGrid = Grid(HEIGHT, WIDTH)
+    newGrid.populate()
+    newGrid.printArr()
 
 
-newGrid = Grid(2,2)
-newGrid.main()
-    
+__main__()

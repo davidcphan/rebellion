@@ -16,9 +16,18 @@ class Grid:
                 init_row.append(None)
             self.arr_turtle.append(init_row)
 
-    
-    def main(self):
+    #prints array for inspection
+    def printArr(self):
         print(str(self.arr_turtle))
+
+    #populate grid with agent turtles
+    def populate(self):
+        for row in self.arr_turtle:
+            for col in range(len(row)):
+                if(row[col] == None):
+                    #add an agent
+                    row[col] = Agent()
+
 
 
         
