@@ -1,10 +1,13 @@
 class Turtle:
 
-    def __init__(self):
-        pass
+    def __init__(self, x, y):
+        setPos(x, y)
 
-    def move(self):
-        pass
+    def getPos(self):
+        return self.pos
 
+    def setPos(self, x, y):
+        self.pos(x, y)
 
-        
+    def move(self, grid):
+        grid.randomlyMoveTurtle(self)
