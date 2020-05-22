@@ -1,6 +1,7 @@
 from turtle import Turtle
 from cop import Cop
 from agent import Agent
+import random
 
 class Grid:
 
@@ -20,13 +21,34 @@ class Grid:
     def printArr(self):
         print(str(self.arr_turtle))
 
-    #populate grid with agent turtles
-    def populate(self):
-        for row in self.arr_turtle:
-            for col in range(len(row)):
-                if(row[col] == None):
-                    #add an agent
-                    row[col] = Agent()
+    #populate grid with turtles randomly
+    def populate(self, Agents, Cops):
+        #populate grid with Agents
+        for agent in range(0, Agents):
+            emptyCell = self.getEmptyCell()
+            row = emptyCell[0]
+            col = emptyCell[1]
+            self.arr_turtle[row][col] = Agent()
+        #populate grid with cops
+        for cops in range(0, Cops):
+            emptyCell = self.getEmptyCell()
+            row = emptyCell[0]
+            col = emptyCell[1]
+            self.arr_turtle[row][col] = Cop()
+
+
+
+    #gets random co-ordinate that's empty
+    def getEmptyCell(self):
+        x = random.sample(range(0, self.W), self.W)
+        y = random.sample(range(0, self.H), self.H)
+        for row in y:
+            for col in x:
+                if(not self.arr_turtle[row][col]):
+                    #cell is empty return co-ordinate
+                    return (row, col)
+
+
 
 
 
