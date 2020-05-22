@@ -1,7 +1,9 @@
 class Turtle:
 
-    def __init__(self):
-        pass
+    def __init__(self, row, col, grid):
+        self.row = row
+        self.col = col
+        self.grid = grid
 
     def move(self):
         pass
