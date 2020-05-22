@@ -10,7 +10,6 @@ def __main__():
     #Need to check if number of agents/cops exceed space on grid
     newGrid.populate(NUM_AGENTS, NUM_COPS)
     newGrid.printArr()
-    newGrid.getEmptyCell()
 
 
 __main__()

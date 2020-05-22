@@ -38,7 +38,7 @@ class Grid:
 
 
 
-    #gets random co-ordinate that's empty
+    #gets random cell that's empty
     def getEmptyCell(self):
         x = random.sample(range(0, self.W), self.W)
         y = random.sample(range(0, self.H), self.H)
