@@ -1,9 +1,9 @@
 from grid import Grid
 
-HEIGHT = 2
-WIDTH = 2
-NUM_AGENTS = 1
-NUM_COPS = 1
+HEIGHT = 4
+WIDTH = 4
+NUM_AGENTS = 3
+NUM_COPS = 3
 
 def __main__():
     newGrid = Grid(HEIGHT, WIDTH)

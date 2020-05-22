@@ -1,4 +1,6 @@
 from turtle import Turtle
 
 class Agent(Turtle):
-    pass
+    #represents opbject as a string called Agent when printed
+    def __repr__(self):
+        return "Agent"

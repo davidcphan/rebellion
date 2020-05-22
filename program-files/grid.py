@@ -17,10 +17,6 @@ class Grid:
                 init_row.append(None)
             self.arr_turtle.append(init_row)
 
-    #prints array for inspection
-    def printArr(self):
-        print(str(self.arr_turtle))
-
     #populate grid with turtles randomly
     def populate(self, Agents, Cops):
         #populate grid with Agents
@@ -47,6 +43,11 @@ class Grid:
                 if(not self.arr_turtle[row][col]):
                     #cell is empty return co-ordinate
                     return (row, col)
+
+    #prints array for inspection
+    def printArr(self):
+        for row in self.arr_turtle:
+            print(str(row))
 
 
 
