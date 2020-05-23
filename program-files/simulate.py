@@ -5,6 +5,7 @@ WIDTH = 4
 NUM_AGENTS = 2
 NUM_COPS = 2
 TURNS = 2
+VISION = 1
 
 def __main__():
     newGrid = Grid(HEIGHT, WIDTH)
