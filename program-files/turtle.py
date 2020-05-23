@@ -6,7 +6,7 @@ class Turtle:
         self.grid = grid
 
     def move(self):
-        pass
+        self.grid.move_turtle(self)
 
 
         
