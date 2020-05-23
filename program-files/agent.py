@@ -2,11 +2,21 @@ from turtle import Turtle
 
 class Agent(Turtle):
 
-    def run(self):
-        #calculate arrest probability
-        #rebel or move
-        self.move()
+    def __init__(self, x, y):
+        self.active = False
+        super().__init__(x, y)
 
-    #represents opbject as a string called Agent when printed
+    def isActive(self):
+        return self.active
+
+    def setActive(self, active):
+        self.active = active
+
+    def isJailed(self):
+        return self.jailed
+    
+    def setJailed(self, jailed):
+        self.jailed = jailed
+
     def __repr__(self):
         return "Agent"

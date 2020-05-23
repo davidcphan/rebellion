@@ -1,10 +1,9 @@
 from turtle import Turtle
 
 class Cop(Turtle):
-    def run(self):
-        #make arrent or move
-        self.move()
+    
+    def __init__(self, x, y):
+        super().__init__(x, y)
 
-    #represents opbject as a string called Cop when printed
     def __repr__(self):
         return "Cop"
