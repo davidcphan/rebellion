@@ -1,15 +1,28 @@
 from grid import Grid
 import argparse
+import curses
+import time
 
-HEIGHT, WIDTH = 4, 4
+HEIGHT, WIDTH = 20, 20
+
+def simulate(window, args):
+    grid = Grid(HEIGHT, WIDTH, args.vision)
+    agents, cops = grid.initialize(args.initial_agent_density, args.initial_cop_density)
+    for i in range(1, 10):
+        window.addstr(0, 0, str(grid))
+        window.refresh()
+        time.sleep(0.5)
+        for turtle in agents + cops:
+            turtle.move(grid)
+        
 
 def __main__():
     # parge arguments
     parser = argparse.ArgumentParser(description='Rebellion model parameters')
     parser.add_argument('--initial-cop-density', dest='initial_cop_density',
-        action='store', type=float, default=0.04, help='percentage of board that is cops')
+        action='store', type=float, default=0.2, help='percentage of board that is cops')
     parser.add_argument('--initial-agent-density', dest='initial_agent_density',
-        action='store', type=float, default=0.7, help='percentage of board that is agents')
+        action='store', type=float, default=0.4, help='percentage of board that is agents')
     parser.add_argument('--vision', dest='vision',
         action='store', type=int, default=7, help='number of grid positions in north/south/east/west directions that a agent/cop can see')
     parser.add_argument('--activation-threshold', dest='activation_threshold',
@@ -20,15 +33,11 @@ def __main__():
         action='store', type=int, default=30, help='number of turns an agent will be jaled')
     args = parser.parse_args()
 
-    grid = Grid(HEIGHT, WIDTH, args.initial_agent_density, args.initial_cop_density)
-    # Need to check if number of agents/cops exceed space on grid
-    # newGrid.populate(NUM_AGENTS, NUM_COPS)
-    grid.printArr()
+    # Call simulation
+    curses.wrapper(simulate, args)
 
-    agents, cops = grid.getTurtles()
-    while True:
-        for turtle in agents + cops:
-            turtle.move(grid)
-        
+    # grid = Grid(HEIGHT, WIDTH, args.vision)
+    # agents, cops = grid.initialize(args.initial_agent_density, args.initial_cop_density)
+    # print(grid)
 
 __main__()
