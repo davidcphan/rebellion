@@ -1,4 +1,5 @@
 from turtle import Turtle
+import config as cfg
 
 class Cop(Turtle):
     
@@ -12,5 +13,8 @@ class Cop(Turtle):
     def enforce(self, grid):
         grid.arrestAgent(self)
 
+    def color(self):
+        return cfg.Color.CYAN
+
     def __repr__(self):
-        return "Cop"
+        return "C"

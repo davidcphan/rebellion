@@ -1,18 +1,22 @@
 import abc
 
 class Turtle(metaclass=abc.ABCMeta):
-    def __init__(self, x, y):
-        self.setPos(x, y)
+    def __init__(self, y, x):
+        self.setPos(y, x)
 
     @abc.abstractmethod
     def update(self, grid):
         pass
 
+    @abc.abstractmethod
+    def color(self):
+        pass
+
     def getPos(self):
         return self.pos
 
-    def setPos(self, x, y):
-        self.pos = (x, y)
+    def setPos(self, y, x):
+        self.pos = (y, x)
 
     def move(self, grid):
         grid.randomlyMoveTurtle(self)
