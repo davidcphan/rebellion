@@ -1,60 +1,57 @@
-from turtle import Turtle
 from cop import Cop
 from agent import Agent
+import config as cfg
 import random
 
 class Grid:
-    def __init__(self, h, w, vision):
-        self.h, self.w = h, w
-        self.vision = vision
-        self.grid = [[None for col in range(0,w)] for row in range(0,h)]
+    def __init__(self):
+        self.grid = [[None for col in range(0, cfg.WIDTH)]
+                            for row in range(0, cfg.HEIGHT)]
 
-    def initialize(self, agent_density, cop_density):
+    def initialize(self):
         # Initialise an empty 2D grid
-        num_agents = int(self.h * self.w * agent_density)
-        num_cops = int(self.h * self.w * cop_density)
+        num_agents = int(cfg.HEIGHT * cfg.WIDTH * cfg.AGENT_DENSITY)
+        num_cops = int(cfg.HEIGHT * cfg.WIDTH * cfg.COP_DENSITY)
 
         # gets random cell that's empty
-        empty_positions = [(row,col) for col in range(0,self.w) for row in range(0,self.h)]
+        empty_positions = [(row,col) for col in range(0, cfg.WIDTH)
+                                        for row in range(0, cfg.HEIGHT)]
         random.shuffle(empty_positions)
         getEmptyCell = lambda: empty_positions.pop()
 
         # populate grid with Agents and Cops
-        agents, cops = [], []
-        for _ in range(0, num_agents):
+        turtles = []
+        for i in range(0, num_agents + num_cops):
             row, col = getEmptyCell()
-            self.grid[row][col] = Agent(row, col)
-            agents.append(self.grid[row][col])
-        for _ in range(0, num_cops):
-            row, col = getEmptyCell()
-            self.grid[row][col] = Cop(row, col)
-            cops.append(self.grid[row][col])
-        return agents, cops
+            turtle = Agent(row, col) if i < num_agents else Cop(row, col)
+            self.grid[row][col] = turtle
+            turtles.append(turtle)
+        return turtles
 
-    def getVisibleField(self, row, col):
+    def getVisibleField(self, turtle):
         # search for vacant positions within vision field
-        v_rng = range(-self.vision, self.vision)
+        row, col = turtle.getPos()
+        v_rng = range(-cfg.VISION, cfg.VISION)
         visible_field = []
         for drow in v_rng:
             for dcol in v_rng:
                 nrow, ncol = row + drow, col + dcol
-                if nrow >= 0 and nrow < self.h and ncol >= 0 and ncol < self.w:
+                if nrow >= 0 and nrow < cfg.HEIGHT and ncol >= 0 and ncol < cfg.WIDTH:
                     visible_field.append((nrow, ncol))
         return visible_field
 
     def randomlyMoveTurtle(self, turtle):
         # Filter vacant positions in visible field
-        row, col = turtle.getPos()
-        visible_field = self.getVisibleField(row, col)
-        # vacant_positions = [(row, col) if ]
+        visible_field = self.getVisibleField(turtle)
         is_pos_vacant = lambda pos: self.grid[pos[0]][pos[1]] == None
         vacant_positions = list(filter(is_pos_vacant, visible_field))
-        # Choose random vacant position (if ant)
+        # Choose random vacant position (if any)
         if(len(vacant_positions) == 0):
             return
         i = random.randint(0, len(vacant_positions)-1)
         nrow, ncol = vacant_positions[i]
         # move turtle
+        row, col = turtle.getPos()
         turtle.setPos(nrow, ncol)
         self.grid[row][col] = None
         self.grid[nrow][ncol] = turtle
@@ -76,8 +73,8 @@ class Grid:
             return
         i = random.randint(0, len(active_agents)-1)
         random_active_agent = active_agents[i]
-        random_active_agent.setJailed(True)
-        random_active_agent.setActive(False)
+        jail_turns = random.randint(0, cfg.MAX_JAIL_TERMS)
+        random_active_agent.setJailed(jail_turns)
 
     def __str__(self):
         grid = ""
