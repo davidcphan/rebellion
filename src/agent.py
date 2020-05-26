@@ -48,6 +48,9 @@ class Agent(Turtle):
     def isJailed(self):
         return self.jailed_turns > 0
 
+    def getType(self):
+        return cfg.Type.AGENT
+
     def color(self):
         if self.isActive():
             return cfg.Color.RED

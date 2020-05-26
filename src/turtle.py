@@ -12,6 +12,10 @@ class Turtle(metaclass=abc.ABCMeta):
     def color(self):
         pass
 
+    @abc.abstractmethod
+    def getType(self):
+        pass
+
     def getPos(self):
         return self.pos
 

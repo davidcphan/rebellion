@@ -15,6 +15,9 @@ class Cop(Turtle):
 
     def color(self):
         return cfg.Color.CYAN
+    
+    def getType(self):
+        return cfg.Type.COP
 
     def __repr__(self):
         return "C"

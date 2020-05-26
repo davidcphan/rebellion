@@ -10,8 +10,8 @@ class Grid:
 
     def initialize(self):
         # Initialise an empty 2D grid
-        num_agents = int(cfg.HEIGHT * cfg.WIDTH * cfg.AGENT_DENSITY)
-        num_cops = int(cfg.HEIGHT * cfg.WIDTH * cfg.COP_DENSITY)
+        num_agents = int(cfg.HEIGHT * cfg.WIDTH * cfg.INITIAL_AGENT_DENSITY)
+        num_cops = int(cfg.HEIGHT * cfg.WIDTH * cfg.INITIAL_COP_DENSITY)
 
         # gets random cell that's empty
         empty_positions = [(row,col) for col in range(0, cfg.WIDTH)
@@ -73,7 +73,7 @@ class Grid:
             return
         i = random.randint(0, len(active_agents)-1)
         random_active_agent = active_agents[i]
-        jail_turns = random.randint(0, cfg.MAX_JAIL_TERMS)
+        jail_turns = random.randint(0, cfg.MAX_JAIL_TURNS)
         random_active_agent.setJailed(jail_turns)
 
     def __str__(self):
