@@ -81,8 +81,8 @@ def __main__():
     if cfg.INITIAL_COP_DENSITY + cfg.INITIAL_AGENT_DENSITY > 1:
         raise Exception("sum of agent and cop densities should not be greater than 100")
 
-    # curses.wrapper(simulate)
-    run()
+    curses.wrapper(simulate)
+    # run()
     
 
 

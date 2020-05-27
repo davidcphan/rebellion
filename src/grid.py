@@ -63,7 +63,7 @@ class Grid:
             turtle = self.grid[row][col]
             if isinstance(turtle, Cop):
                 cops.append(turtle)
-            elif isinstance(turtle, Agent):
+            if isinstance(turtle, Agent):
                 if turtle.isActive():
                     active.append(turtle)
                 else:

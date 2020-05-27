@@ -7,6 +7,7 @@ GOVERNMENT_LEGITIMACY = None
 MAX_JAIL_TURNS = None
 MOVEMENT = None
 AVERAGE_HARDSHIP = None
+ACTIVE_COPS = None
 HEIGHT = 20
 WIDTH = 60
 TURNS = 10
@@ -37,12 +38,13 @@ def initGlobals():
     parser.add_argument('--max-jail-turns', dest="max_jail_turns",
         action='store', type=int, default=30, help='number of turns an agent will be jaled')
     parser.add_argument('--no-movement', dest='movement', action='store_false')
+    parser.add_argument('--active-cops', dest='active_cops', action='store_true')
     parser.add_argument('--average-hardship', dest='average_hardship', action='store_true')
-    parser.set_defaults(movement=True, average_hardship=False)
+    parser.set_defaults(movement=True, average_hardship=False, active_cops=False)
     args = parser.parse_args()
 
     # set globals
-    global INITIAL_COP_DENSITY, INITIAL_AGENT_DENSITY, VISION, GOVERNMENT_LEGITIMACY, MAX_JAIL_TURNS, TURNS, MOVEMENT, AVERAGE_HARDSHIP
+    global INITIAL_COP_DENSITY, INITIAL_AGENT_DENSITY, VISION, GOVERNMENT_LEGITIMACY, MAX_JAIL_TURNS, TURNS, MOVEMENT, AVERAGE_HARDSHIP, ACTIVE_COPS
     INITIAL_COP_DENSITY = args.cop_density
     INITIAL_AGENT_DENSITY = args.agent_density
     VISION = args.vision
@@ -51,3 +53,5 @@ def initGlobals():
     TURNS = args.turns
     MOVEMENT = args.movement
     AVERAGE_HARDSHIP = args.average_hardship
+    ACTIVE_COPS = args.active_cops
+    
