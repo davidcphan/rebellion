@@ -1,4 +1,5 @@
 from turtle import Turtle
+from agent import Agent
 import config as cfg
 
 class Cop(Turtle):
@@ -7,7 +8,8 @@ class Cop(Turtle):
         super().__init__(x, y)
 
     def update(self, grid):
-        self.move(grid)
+        if cfg.MOVEMENT:
+            self.move(grid)
         self.enforce(grid)
 
     def enforce(self, grid):

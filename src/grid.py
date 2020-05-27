@@ -58,21 +58,24 @@ class Grid:
 
     def searchNeighbourhood(self, turtle):
         visible_field = self.getVisibleField(turtle)
-        active_agents, cops = [], []
+        active, neutral, cops = [], [], []
         for row, col in visible_field:
             turtle = self.grid[row][col]
             if isinstance(turtle, Cop):
                 cops.append(turtle)
-            elif isinstance(turtle, Agent) and turtle.isActive():
-                active_agents.append(turtle)
-        return active_agents, cops
+            elif isinstance(turtle, Agent):
+                if turtle.isActive():
+                    active.append(turtle)
+                else:
+                    neutral.append(turtle)
+        return active, neutral, cops
 
     def arrestAgent(self, cop):
-        active_agents, _ = self.searchNeighbourhood(cop)
-        if(len(active_agents) == 0):
+        active, _, _ = self.searchNeighbourhood(cop)
+        if(len(active) == 0):
             return
-        i = random.randint(0, len(active_agents)-1)
-        random_active_agent = active_agents[i]
+        i = random.randint(0, len(active)-1)
+        random_active_agent = active[i]
         jail_turns = random.randint(0, cfg.MAX_JAIL_TURNS)
         random_active_agent.setJailed(jail_turns)
 

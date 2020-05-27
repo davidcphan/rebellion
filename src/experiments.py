@@ -26,22 +26,27 @@ def makeRunCommand(params):
 def runExperiment(name, params):
   # Run command
   command = makeRunCommand(params)
-  print(command)
   p = sh.run(command, stdout=sh.PIPE)
   lines = p.stdout.decode("utf-8")
   
   # Get data
   skip = int(lines.split('\n')[0].split(',')[0])
   file = io.StringIO(lines)
-  data = pandas.read_csv(file, delimiter=',', skiprows=skip+1)
+  df = pandas.read_csv(file, delimiter=',', skiprows=skip+1)
 
   # Plot time vs actives, jailed, neutral
-  fig = data.plot.line(x='Run')
+  fig = df.plot.line(x='Run')
   fig.set_xlabel('Run')
   fig.get_figure().savefig(name + '_actives-vs-time.png')
   
   # waiting times distribution
-  # riot size distribution 
+  threshold = 50
+  df1 = df[df['Actives'] > threshold] # runs where there is a riot
+  df2 = df1[df1.shift(1)['Run'] != df1['Run']-1]  # runs where a riot starts
+  df3 = df2['Run'][1:].reset_index(drop=True) - \
+      df2['Run'][:-1].reset_index(drop=True)      # waiting times
+  fig = df3.plot.hist(bins=range(1,100))
+  fig.get_figure().savefig(name + '_waiting_times_hist.png')
 
 
 def __main__():
@@ -49,7 +54,8 @@ def __main__():
   # experiments = [("one","tw")]
   experiments = [
     ("exp1", {
-      "government_legitimacy": 0.82
+      "government_legitimacy": 0.82,
+      "turns": 10,
     }), 
     # ("exp2", {
     #   "government_legitimacy": 0.9

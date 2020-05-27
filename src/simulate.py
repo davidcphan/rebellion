@@ -60,6 +60,7 @@ def run():
     # Columns
     w.writerow(["Run", "Actives", "Jailed", "Neutral"])
 
+    rows = []
     for i in range(0, cfg.TURNS):
         active, jailed, neutral = 0, 0, 0
         for agent in agents:
@@ -69,10 +70,11 @@ def run():
                 jailed = jailed + 1
             else:
                 neutral = neutral + 1
-        w.writerow([i, active, jailed, neutral])
-
+        rows.append([i, active, jailed, neutral])
+        
         for turtle in turtles:
             turtle.update(grid)
+    w.writerows(rows)
 
 def __main__():
     cfg.initGlobals()

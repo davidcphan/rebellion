@@ -1,6 +1,7 @@
 from turtle import Turtle
 import config as cfg
 import random
+import functools as f
 import math
 
 class Agent(Turtle):
@@ -18,24 +19,30 @@ class Agent(Turtle):
 
     def update(self, grid):
         if not self.isJailed():
-            self.move(grid)
+            if cfg.MOVEMENT:
+                self.move(grid)
             self.determineBehaviour(grid)
         else:
             self.jailed_turns = self.jailed_turns - 1
 
 
-    def calculateGrievence(self):
-        return self.percieved_harship * (1 - cfg.GOVERNMENT_LEGITIMACY)
+    def calculateGrievence(self, agents):
+        hardship = self.percieved_harship
+        if cfg.AVERAGE_HARDSHIP:
+            av_hardship = f.reduce(lambda acc, agent: agent.percieved_harship + acc, agents, 0) / len(agents)
+            hardship = (hardship + av_hardship) / 2
+        return hardship * (1 - cfg.GOVERNMENT_LEGITIMACY)
 
-    def calculateNetRisk(self, grid):
-        active_agents, cops = grid.searchNeighbourhood(self)
+    def calculateNetRisk(self, num_actives, num_cops):
         # Avoid divide by zero by counting yourself as active agent
-        A, C = len(active_agents) + 1, len(cops)
-        arrest_probability = 1 - math.exp(-self.k * math.floor(C / A))
+        num_actives = num_actives + 1
+        arrest_probability = 1 - math.exp(-self.k * math.floor(num_cops / num_actives))
         return self.risk_aversion * arrest_probability
 
     def determineBehaviour(self, grid):
-        self.active = self.calculateGrievence() - self.calculateNetRisk(grid) > self.threshold
+        active, neutral, cops = grid.searchNeighbourhood(self)
+        self.active = self.calculateGrievence(active+neutral) -  \
+            self.calculateNetRisk(len(active), len(cops)) > self.threshold
     
     def setJailed(self, turns):
         self.jailed_turns = turns
