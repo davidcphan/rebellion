@@ -29,7 +29,7 @@ def runExperiment(name, params):
   print(command)
   p = sh.run(command, stdout=sh.PIPE)
   lines = p.stdout.decode("utf-8")
-  
+  print(lines)
   # Get data
   skip = int(lines.split('\n')[0].split(',')[0])
   file = io.StringIO(lines)
@@ -48,12 +48,95 @@ def __main__():
 
   # experiments = [("one","tw")]
   experiments = [
-    ("exp1", {
-      "government_legitimacy": 0.82
-    }), 
-    # ("exp2", {
-    #   "government_legitimacy": 0.9
-    # })
+    ("default", {
+    "initial_cop_density": 0.04,
+    "initial_agent_density": 0.7,
+    "vision": 7,
+    "government_legitimacy": 0.80,
+    "max_jail_turns": 30,
+    'turns': 100,
+    }),
+     ("gov_high", {
+    "initial_cop_density": 0.04,
+    "initial_agent_density": 0.7,
+    "vision": 7,
+    "government_legitimacy": 0.90,
+    "max_jail_turns": 30,
+    'turns': 100,
+    }),
+    ("gov_low", {
+    "initial_cop_density": 0.04,
+    "initial_agent_density": 0.7,
+    "vision": 7,
+    "government_legitimacy": 0.20,
+    "max_jail_turns": 30,
+    'turns': 100,
+    }),
+    ("cop_high", {
+    "initial_cop_density": 0.15,
+    "initial_agent_density": 0.7,
+    "vision": 7,
+    "government_legitimacy": 0.80,
+    "max_jail_turns": 30,
+    'turns': 100,
+    }),
+    ("cop_low", {
+    "initial_cop_density": 0.02,
+    "initial_agent_density": 0.7,
+    "vision": 7,
+    "government_legitimacy": 0.80,
+    "max_jail_turns": 30,
+    'turns': 100,
+    }),
+    ("agent_high", {
+    "initial_cop_density": 0.04,
+    "initial_agent_density": 0.9,
+    "vision": 7,
+    "government_legitimacy": 0.80,
+    "max_jail_turns": 30,
+    'turns': 100,
+    }),
+    ("agent_low", {
+    "initial_cop_density": 0.04,
+    "initial_agent_density": 0.3,
+    "vision": 7,
+    "government_legitimacy": 0.80,
+    "max_jail_turns": 30,
+    'turns': 100,
+    }),
+    ("vision_high", {
+    "initial_cop_density": 0.04,
+    "initial_agent_density": 0.7,
+    "vision": 15,
+    "government_legitimacy": 0.80,
+    "max_jail_turns": 30,
+    'turns': 100,
+    }),
+    ("vision_low", {
+    "initial_cop_density": 0.04,
+    "initial_agent_density": 0.7,
+    "vision": 2,
+    "government_legitimacy": 0.80,
+    "max_jail_turns": 30,
+    'turns': 100,
+    }),
+    ("jail_high", {
+    "initial_cop_density": 0.04,
+    "initial_agent_density": 0.7,
+    "vision": 7,
+    "government_legitimacy": 0.80,
+    "max_jail_turns": 50,
+    'turns': 100,
+    }),
+    ("jail_low", {
+    "initial_cop_density": 0.04,
+    "initial_agent_density": 0.7,
+    "vision": 7,
+    "government_legitimacy": 0.80,
+    "max_jail_turns": 5,
+    'turns': 100,
+    }),
+
   ]
 
   for name, params in experiments:
