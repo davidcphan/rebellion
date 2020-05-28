@@ -6,10 +6,10 @@ import time
 import csv
 
 
-# agents are green - normal, red - active, black - jailed
-# cops are blue
+# Draws a simulation of the model onto a colorized terminal
 def simulate(window):
 
+    # Create foreground/background color pairs
     # Agent = normal - green, active - red, jailed - black
     # Cops = cyan
     curses.init_pair(cfg.Color.RED, curses.COLOR_RED, curses.COLOR_BLACK)
@@ -22,9 +22,11 @@ def simulate(window):
     turtles = grid.initialize()
 
     while True:
+        # Update state of turtles accroding to movement rules
         for turtle in turtles:
             turtle.update(grid)
 
+        # Draws the turtles onto the terminal
         window.clear()
         for turtle in turtles:
             y, x = turtle.getPos()
@@ -34,6 +36,9 @@ def simulate(window):
         time.sleep(0.1)
         
 
+# Runs the model and prints the data as csv to standard output
+# To write to a csv file, pipe standard output to a file like
+# python3 simulate.py > file.csv
 def run():
 
     grid = Grid()
@@ -42,7 +47,7 @@ def run():
 
     w.writerow([8, cfg.TURNS])
 
-    # Parameters
+    # Print Parameters
     w.writerow(["government-legitimacy", cfg.GOVERNMENT_LEGITIMACY])
     w.writerow(["movement?", "True" if cfg.MOVEMENT else "False"])
     w.writerow(["initial-agent-density", cfg.INITIAL_COP_DENSITY])
@@ -60,6 +65,7 @@ def run():
     # Columns
     w.writerow(["Run", "Actives", "Jailed", "Neutral"])
 
+    # Simulate model and print run data
     rows = []
     for i in range(0, cfg.TURNS):
         active, jailed, neutral = 0, 0, 0
@@ -76,14 +82,13 @@ def run():
             turtle.update(grid)
     w.writerows(rows)
 
+# Entry point of application
 def __main__():
     cfg.initGlobals()
     if cfg.INITIAL_COP_DENSITY + cfg.INITIAL_AGENT_DENSITY > 1:
-        raise Exception("sum of agent and cop densities should not be greater than 100")
+        raise Exception("sum of agent and cop densities should not be greater than 1")
 
     curses.wrapper(simulate)
     # run()
-    
-
 
 __main__()
