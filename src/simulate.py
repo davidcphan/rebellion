@@ -21,7 +21,7 @@ def simulate(window):
     grid = Grid()
     turtles = grid.initialize()
 
-    while True:
+    for _ in range(0, cfg.TURNS):
         # Update state of turtles accroding to movement rules
         for turtle in turtles:
             turtle.update(grid)
@@ -77,11 +77,10 @@ def run():
                 jailed = jailed + 1
             else:
                 neutral = neutral + 1
-        rows.append([i, active, jailed, neutral])
+        w.writerow([i, active, jailed, neutral])
         
         for turtle in turtles:
             turtle.update(grid)
-    w.writerows(rows)
 
 # Entry point of application
 def __main__():
@@ -90,7 +89,9 @@ def __main__():
         raise Exception("sum of agent and cop densities should not be \
             greater than 1")
 
-    curses.wrapper(simulate)
-    # run()
+    if cfg.SIMULATE:
+        curses.wrapper(simulate)
+    else:
+        run()
 
 __main__()

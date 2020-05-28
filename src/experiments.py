@@ -41,13 +41,13 @@ def runExperiment(name, params):
   fig.get_figure().savefig(name + '_actives-vs-time.png')
   
   # waiting times distribution
-  threshold = 50
-  df1 = df[df['Actives'] > threshold] # runs where there is a riot
-  df2 = df1[df1.shift(1)['Run'] != df1['Run']-1]  # runs where a riot starts
-  df3 = df2['Run'][1:].reset_index(drop=True) - \
-      df2['Run'][:-1].reset_index(drop=True)      # waiting times
-  fig = df3.plot.hist(bins=range(1,100))
-  fig.get_figure().savefig(name + '_waiting_times_hist.png')
+  # threshold = 50
+  # df1 = df[df['Actives'] > threshold] # runs where there is a riot
+  # df2 = df1[df1.shift(1)['Run'] != df1['Run']-1]  # runs where a riot starts
+  # df3 = df2['Run'][1:].reset_index(drop=True) - \
+  #     df2['Run'][:-1].reset_index(drop=True)      # waiting times
+  # fig = df3.plot.hist(bins=range(1,100))
+  # fig.get_figure().savefig(name + '_waiting_times_hist.png')
 
 
 def __main__():
