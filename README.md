@@ -18,4 +18,5 @@
     <td>1144189</td>
   </tr>
 </table>
+To modify the parameters of the simulation, the config file can be used. Setting the --average-hardship flag will cause our extension, which causes the grievance of neighbours to affect an individuals grievance, to be active.
 
