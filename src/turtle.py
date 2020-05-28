@@ -1,7 +1,8 @@
 import abc
 
-# A turtle represents an entity on the grid. There are two types of turtles, cops and agents.
-# This abstract base class keeps all logic common to cops and agents (e.g. movement) 
+# A turtle represents an entity on the grid. There are two types of turtles,
+# cops and agents. This abstract base class keeps all logic common to cops and
+# agents (e.g. movement) 
 class Turtle(metaclass=abc.ABCMeta):
     def __init__(self, y, x):
         self.setPos(y, x)

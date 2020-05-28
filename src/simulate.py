@@ -56,7 +56,8 @@ def run():
     w.writerow(["initial-cop-density", cfg.INITIAL_AGENT_DENSITY])
 
     # Number of cops and agents
-    agents = [turtle for turtle in turtles if turtle.getType() == cfg.Type.AGENT]
+    agents = [turtle for turtle in turtles if turtle.getType() \
+        == cfg.Type.AGENT]
     num_agents = len(agents)
     num_cops = len(turtles) - num_agents
     w.writerow(["Agents", num_agents])
@@ -86,7 +87,8 @@ def run():
 def __main__():
     cfg.initGlobals()
     if cfg.INITIAL_COP_DENSITY + cfg.INITIAL_AGENT_DENSITY > 1:
-        raise Exception("sum of agent and cop densities should not be greater than 1")
+        raise Exception("sum of agent and cop densities should not be \
+            greater than 1")
 
     curses.wrapper(simulate)
     # run()

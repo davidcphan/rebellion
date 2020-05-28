@@ -10,11 +10,12 @@ class Cop(Agent):
         # Initialises all agent and turtle parameters
         super().__init__(x, y)
 
-    # If we aren't using the --active-cops flag. A cop updates its state according to
-    # Movement rule B: Move to a random site within your vision
-    # Cop rule C: Inspect all sites within vision radius and arrest a random active agent.
-    # As prescribed by the base model. Otherwise it additionally uses update rule
-    # Agent rule A: If grievence - net risk > threshold be active; else neutral
+    # If we aren't using the --active-cops flag. A cop updates its state
+    # according to Movement rule B: Move to a random site within your vision 
+    # Cop rule C: Inspect all sites within vision radius and arrest a random
+    # active agent. As prescribed by the base model. Otherwise it additionally
+    # uses update rule Agent rule A: If grievence - net risk > threshold be 
+    # active; else neutral
     def update(self, grid):
         if cfg.ACTIVE_COPS:
             super().update(grid)

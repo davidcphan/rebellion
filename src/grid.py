@@ -40,7 +40,8 @@ class Grid:
             for dcol in v_rng:
                 nrow, ncol = row + drow, col + dcol
                 # Check if position is valid (inside grid)
-                if nrow >= 0 and nrow < cfg.HEIGHT and ncol >= 0 and ncol < cfg.WIDTH:
+                if nrow >= 0 and nrow < cfg.HEIGHT and ncol >= 0 \
+                    and ncol < cfg.WIDTH:
                     visible_field.append((nrow, ncol))
         return visible_field
 
